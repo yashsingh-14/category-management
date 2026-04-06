@@ -63,7 +63,7 @@ category-management/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/category-management.git
+   git clone https://github.com/yashsingh-14/category-management.git
    cd category-management
    ```
 
