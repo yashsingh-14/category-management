@@ -10,21 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3b82f6;      /* Blue for edit/update */
+            --primary: #3b82f6;      
             --primary-hover: #2563eb;
             --primary-light: rgba(59, 130, 246, 0.08);
             
-            --success: #10b981;      /* Green for add/success */
-            --success-hover: #059669;
+            --success: #198754;      /* Exact Bootstrap Success Green */
+            --success-hover: #157347;
+            
+            --danger: #dc3545;       /* Exact Bootstrap Danger Red */
+            --danger-hover: #bb2d3b;
             
             --surface: #ffffff;
             --surface-alt: #f8f9fc;
             --border: #e5e7eb;
             --text: #1e293b;
             --text-muted: #64748b;
-            
-            --danger: #ef4444;       /* Red for delete/danger */
-            --danger-hover: #dc2626;
             
             --success-bg: #ecfdf5;
             --success-border: #a7f3d0;
@@ -77,7 +77,7 @@
         /* ── Page Header ── */
         .page-header {
             padding: 2.5rem 0 1.5rem;
-            text-align: center; /* Centered as requested */
+            text-align: center;
         }
         .page-header h1 {
             font-size: 1.8rem;
@@ -137,50 +137,6 @@
             box-shadow: 0 0 0 3px var(--primary-light);
         }
 
-        /* Custom Button Styling */
-        .btn-custom {
-            border: none;
-            border-radius: 8px;
-            padding: 0.6rem 1.5rem;
-            font-weight: 600;
-            font-size: 0.925rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            transition: all 0.2s;
-        }
-        
-        .btn-success-custom { /* Green for Add */
-            background: var(--success);
-            color: #fff;
-        }
-        .btn-success-custom:hover {
-            background: var(--success-hover);
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-        .btn-primary-custom { /* Blue for Update */
-            background: var(--primary);
-            color: #fff;
-        }
-        .btn-primary-custom:hover {
-            background: var(--primary-hover);
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary-custom {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-        }
-        .btn-secondary-custom:hover {
-            background: var(--surface-alt);
-            color: var(--text);
-        }
-
         /* ── Table ── */
         .table-wrapper {
             overflow-x: auto;
@@ -212,33 +168,11 @@
             background: var(--surface-alt);
         }
 
-        /* Table Action Buttons */
-        .action-btn {
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 8px;
-            display: inline-grid;
-            place-items: center;
+        /* Action icons */
+        .btn-edit, .btn-delete {
+            padding: 0.4rem 0.6rem;
             font-size: 0.95rem;
-            transition: all 0.2s;
-            cursor: pointer;
         }
-        .action-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .btn-edit {
-            background: #eff6ff; /* Light blue */
-            color: var(--primary);
-        }
-        .btn-edit:hover { background: var(--primary); color: white; box-shadow: var(--shadow-sm); }
-        
-        .btn-delete {
-            background: #fef2f2; /* Light red */
-            color: var(--danger);
-        }
-        .btn-delete:hover { background: var(--danger); color: white; box-shadow: var(--shadow-sm); }
 
         /* ── Alert Toast ── */
         .alert-toast {
@@ -304,7 +238,18 @@
         
         /* ── Margin tweaks ── */
         .form-section {
-            margin-bottom: 2.5rem; /* Better spacing between form and table */
+            margin-bottom: 2.5rem; 
+        }
+
+        /* Badge Style */
+        .count-badge {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.65rem;
+            border-radius: 20px;
+            margin-left: auto;
         }
 
         /* ── Responsive ── */
@@ -322,7 +267,7 @@
         <div class="container">
             <a href="#" class="brand">
                 <span class="brand-icon"><i class="bi bi-grid-3x3-gap-fill"></i></span>
-                CategoryHub
+                Category Management System
             </a>
         </div>
     </nav>
@@ -341,7 +286,7 @@
             <p>Create, edit, and manage your product categories</p>
         </div>
 
-        <!-- Form Card (Added extra bottom margin via CSS form-section) -->
+        <!-- Form Card -->
         <div class="card-custom form-section">
             <div class="card-header-custom" id="formHeader">
                 <i class="bi bi-plus-circle" id="formIcon"></i>
@@ -361,15 +306,15 @@
                             <input type="text" class="form-control" id="description" placeholder="Brief description">
                         </div>
                         <div class="col-md-2 d-flex align-items-end gap-2">
-                            <!-- Button starts as green (success) -->
-                            <button type="submit" class="btn-custom btn-success-custom w-100" id="submitBtn">
+                            <!-- Button starts as green (success) native bootstrap class -->
+                            <button type="submit" class="btn btn-success w-100 fw-semibold shadow-sm" id="submitBtn">
                                 <i class="bi bi-plus-lg" id="submitIcon"></i>
                                 <span id="submitText">Add</span>
                             </button>
                         </div>
                     </div>
                     <div id="cancelWrapper" class="mt-3" style="display: none; text-align: right;">
-                        <button type="button" class="btn-custom btn-secondary-custom btn-sm" onclick="resetForm()">
+                        <button type="button" class="btn btn-outline-secondary btn-sm fw-semibold" onclick="resetForm()">
                             <i class="bi bi-x-lg"></i> Cancel
                         </button>
                     </div>
@@ -382,10 +327,12 @@
             <div class="card-header-custom">
                 <i class="bi bi-table"></i>
                 <span>All Categories</span>
+                <!-- 2. Dynamic Count Badge -->
+                <span class="count-badge" id="countBadge">0</span>
             </div>
             
             <div class="table-wrapper">
-                <!-- 6. Loading State -->
+                <!-- 4. Loading State -->
                 <div id="loadingSpinner" class="spinner-wrapper">
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -393,10 +340,10 @@
                     <div class="text-muted mt-2 fw-medium">Loading...</div>
                 </div>
                 
-                <!-- 4. Empty State -->
+                <!-- Empty State -->
                 <div id="emptyState" class="empty-state" style="display: none;">
-                    <i class="bi bi-inbox"></i>
-                    <p>No categories available</p> <!-- Updated text -->
+                    <i class="bi bi-box-seam"></i>
+                    <p>No categories available</p> 
                 </div>
                 
                 <table class="table" id="categoryTable" style="display: none;">
@@ -434,6 +381,7 @@
         const categoryTable = document.getElementById("categoryTable");
         const loadingSpinner = document.getElementById("loadingSpinner");
         const emptyState = document.getElementById("emptyState");
+        const countBadge = document.getElementById("countBadge");
 
         // ── Load categories on page load ──
         document.addEventListener("DOMContentLoaded", loadCategories);
@@ -458,6 +406,9 @@
         // ── Render table rows ──
         function renderTable(categories) {
             showLoading(false);
+            
+            // 2. Count badge handles the size dynamically
+            countBadge.textContent = categories.length;
 
             if (categories.length === 0) {
                 categoryTable.style.display = "none";
@@ -475,13 +426,12 @@
                     <td style="color: var(--text-muted);">${escapeHtml(cat.description || "—")}</td>
                     <td style="text-align: center;">
                         <!-- Update Button (Blue) -->
-                        <button class="action-btn btn-edit me-1" title="Update" onclick='editCategory(${JSON.stringify(cat)})'>
-                            <i class="bi bi-pencil-fill"></i>
+                        <button class="btn btn-sm btn-primary fw-semibold btn-edit shadow-sm me-1" title="Update" onclick='editCategory(${JSON.stringify(cat)})'>
+                            <i class="bi bi-pencil-square"></i>
                         </button>
                         <!-- Delete Button (Red) -->
-                        <!-- 5. Delete confirmation is handled in the JS function -->
-                        <button class="action-btn btn-delete" title="Delete" onclick="deleteCategory(${cat.categoryId})">
-                            <i class="bi bi-trash-fill"></i>
+                        <button class="btn btn-sm btn-danger fw-semibold btn-delete shadow-sm" title="Delete" onclick="deleteCategory(${cat.categoryId})">
+                            <i class="bi bi-trash3-fill"></i>
                         </button>
                     </td>
                 </tr>
@@ -510,6 +460,11 @@
             const method = isUpdate ? "PUT" : "POST";
 
             try {
+                // Keep UI feeling responsive with "Saving..."
+                const originalText = submitText.textContent;
+                submitText.textContent = "Saving...";
+                submitBtn.disabled = true;
+
                 const response = await fetch(url, {
                     method,
                     headers: { "Content-Type": "application/json" },
@@ -526,6 +481,8 @@
                 loadCategories();
             } catch (error) {
                 showAlert("error", error.message || "Something went wrong.");
+            } finally {
+                submitBtn.disabled = false;
             }
         });
 
@@ -547,9 +504,9 @@
             submitText.textContent = "Update";
             submitIcon.className = "bi bi-check-lg";
             
-            // 3. Update button to blue (primary)
-            submitBtn.classList.remove("btn-success-custom");
-            submitBtn.classList.add("btn-primary-custom");
+            // 1. Swap button class to Primary Blue
+            submitBtn.classList.remove("btn-success");
+            submitBtn.classList.add("btn-primary");
             
             cancelWrapper.style.display = "block";
 
@@ -559,9 +516,9 @@
 
         // ── Delete (soft) ──
         async function deleteCategory(id) {
-            // 5. Delete confirmation
+            // Delete confirmation popup
             if (!confirm("Are you sure you want to delete this category?")) {
-                return; // User clicked "Cancel", do nothing
+                return; // User clicked "Cancel", avoid fetching
             }
 
             try {
@@ -592,9 +549,9 @@
             submitText.textContent = "Add";
             submitIcon.className = "bi bi-plus-lg";
             
-            // 3. Add button back to green (success)
-            submitBtn.classList.remove("btn-primary-custom");
-            submitBtn.classList.add("btn-success-custom");
+            // 1. Swap back to Green Success 
+            submitBtn.classList.remove("btn-primary");
+            submitBtn.classList.add("btn-success");
             
             cancelWrapper.style.display = "none";
         }
