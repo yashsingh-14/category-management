@@ -1,0 +1,8 @@
+commit 63219d7bcae3e98dc71705c0e7de858d09c391fa
+Author: yash <ys181544@gmail.com>
+Date:   Tue Apr 7 18:57:09 2026 +0530
+
+    fix: remove invalid URL pattern for Spring Boot 3.x compatibility
+
+ src/main/java/com/ecommerce/category/config/WebConfig.java | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)

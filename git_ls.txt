@@ -1,0 +1,8 @@
+H src/main/resources/application-render.properties
+H src/main/resources/application.properties
+H src/main/resources/static/assets/bootstrap-icons-BeopsB42.woff
+H src/main/resources/static/assets/bootstrap-icons-mSm7cUeB.woff2
+H src/main/resources/static/assets/index-CZ7NzAC5.js
+H src/main/resources/static/assets/index-DfFN7tiz.css
+H src/main/resources/static/index.html
+ M src/main/resources/application.properties
