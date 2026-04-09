@@ -139,7 +139,7 @@ function Categories() {
                   style={{ borderRadius: 8 }}
                 />
               </div>
-              <div className="col-md-2 d-flex align-items-end">
+              <div className="col-md-2 d-md-flex align-items-md-end mt-3 mt-md-0">
                 <button
                   type="submit"
                   className={`btn ${editId ? 'btn-primary' : 'btn-success'} w-100 fw-semibold shadow-sm`}

@@ -1,132 +1,104 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllCategories } from '../api/categoryApi'
 
 function Dashboard() {
-  const [totalCategories, setTotalCategories] = useState('—')
-  const [systemStatus, setSystemStatus] = useState('Checking...')
-  const [statusColor, setStatusColor] = useState('var(--text-muted)')
-
-  useEffect(() => {
-    loadStats()
-  }, [])
-
-  async function loadStats() {
-    try {
-      const res = await getAllCategories()
-      setTotalCategories(res.data.length)
-      setSystemStatus('Online')
-      setStatusColor('var(--success)')
-    } catch {
-      setSystemStatus('Offline')
-      setStatusColor('var(--danger)')
-    }
-  }
+  const [stats] = useState({
+    totalCategories: 0,
+    activeProducts: 3,
+    cartItems: 0,
+    totalOrders: 0
+  })
 
   return (
-    <div className="container" style={{ maxWidth: 1000 }}>
-      {/* Page Title */}
-      <div className="section-header" style={{ paddingTop: '2rem' }}>
-        <h2><i className="bi bi-speedometer2 me-2" style={{ color: 'var(--primary)' }}></i>Dashboard</h2>
-        <p>Overview of your Category Management System</p>
+    <div className="container-fluid py-2">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 className="fw-bold mb-1">Dashboard</h2>
+          <p className="text-secondary mb-0">Overview of your Enterprise System</p>
+        </div>
       </div>
 
-      {/* Stat Cards */}
-      <div className="row g-3 mb-4">
-        <div className="col-sm-6 col-lg-3">
+      <div className="row g-4 mb-4">
+        <div className="col-xl-3 col-sm-6">
           <div className="stat-card">
             <div className="stat-icon blue">
-              <i className="bi bi-bookmark-star-fill"></i>
+              <i className="bi bi-grid-fill"></i>
             </div>
             <div className="stat-info">
-              <h3>{totalCategories}</h3>
-              <p>Total Categories</p>
+              <h3>{stats.totalCategories}</h3>
+              <p>Categories</p>
             </div>
           </div>
         </div>
-
-        <div className="col-sm-6 col-lg-3">
+        <div className="col-xl-3 col-sm-6">
           <div className="stat-card">
-            <div className="stat-icon green">
-              <i className="bi bi-check-circle-fill"></i>
+            <div className="stat-icon purple">
+              <i className="bi bi-box-seam-fill"></i>
             </div>
             <div className="stat-info">
-              <h3 style={{ color: statusColor, fontSize: '1.2rem' }}>{systemStatus}</h3>
-              <p>System Status</p>
+              <h3>{stats.activeProducts}</h3>
+              <p>Products</p>
             </div>
           </div>
         </div>
-
-        <div className="col-sm-6 col-lg-3">
+        <div className="col-xl-3 col-sm-6">
           <div className="stat-card">
             <div className="stat-icon amber">
-              <i className="bi bi-cart3"></i>
+              <i className="bi bi-cart-fill"></i>
             </div>
             <div className="stat-info">
-              <h3>0</h3>
+              <h3>{stats.cartItems}</h3>
               <p>Cart Items</p>
             </div>
           </div>
         </div>
-
-        <div className="col-sm-6 col-lg-3">
+        <div className="col-xl-3 col-sm-6">
           <div className="stat-card">
-            <div className="stat-icon purple">
+            <div className="stat-icon green">
               <i className="bi bi-bag-check-fill"></i>
             </div>
             <div className="stat-info">
-              <h3>0</h3>
+              <h3>{stats.totalOrders}</h3>
               <p>Total Orders</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="card-custom">
-        <div className="card-header-custom">
-          <i className="bi bi-lightning-charge"></i>
-          <span>Quick Actions</span>
-        </div>
-        <div className="card-body-custom">
-          <div className="row g-3">
-            <div className="col-sm-6 col-md-3">
-              <Link to="/categories" className="btn btn-success w-100 fw-semibold shadow-sm py-2">
-                <i className="bi bi-plus-lg me-1"></i> Add Category
-              </Link>
+      <div className="row g-4">
+        <div className="col-12">
+          <div className="card-custom">
+            <div className="card-header-custom d-flex justify-content-between align-items-center bg-transparent">
+              <span><i className="bi bi-star-fill me-2 text-warning"></i> Featured Premium Products</span>
+              <Link to="/products" className="btn btn-sm btn-outline-primary rounded-pill px-3">View All</Link>
             </div>
-            <div className="col-sm-6 col-md-3">
-              <Link to="/categories" className="btn btn-primary w-100 fw-semibold shadow-sm py-2">
-                <i className="bi bi-eye me-1"></i> View All
-              </Link>
-            </div>
-            <div className="col-sm-6 col-md-3">
-              <Link to="/cart" className="btn btn-outline-secondary w-100 fw-semibold py-2">
-                <i className="bi bi-cart3 me-1"></i> Cart
-              </Link>
-            </div>
-            <div className="col-sm-6 col-md-3">
-              <Link to="/orders" className="btn btn-outline-secondary w-100 fw-semibold py-2">
-                <i className="bi bi-bag-check me-1"></i> Orders
-              </Link>
+            <div className="card-body-custom">
+              <div className="row g-4">
+                {/* 3D Hover Embedded Cards */}
+                <div className="col-md-4 tilt-wrapper">
+                  <div className="card-3d bg-white rounded-3 p-3 text-center border h-100" style={{cursor: 'pointer'}}>
+                    <img src="/images/laptop.png?v=2" alt="Laptop" className="img-fluid mb-3" style={{height: '120px', objectFit: 'contain'}} />
+                    <h6 className="fw-bold fs-5">Aurora X-1 Laptop</h6>
+                    <p className="text-muted small">$1,899</p>
+                  </div>
+                </div>
+                <div className="col-md-4 tilt-wrapper">
+                  <div className="card-3d bg-white rounded-3 p-3 text-center border h-100" style={{cursor: 'pointer'}}>
+                    <img src="/images/watch.png?v=2" alt="Watch" className="img-fluid mb-3" style={{height: '120px', objectFit: 'contain'}} />
+                    <h6 className="fw-bold fs-5">Titanium Smartwatch Pro</h6>
+                    <p className="text-muted small">$349</p>
+                  </div>
+                </div>
+                <div className="col-md-4 tilt-wrapper">
+                  <div className="card-3d bg-white rounded-3 p-3 text-center border h-100" style={{cursor: 'pointer'}}>
+                    <img src="/images/headphones.png?v=2" alt="Headphones" className="img-fluid mb-3" style={{height: '120px', objectFit: 'contain'}} />
+                    <h6 className="fw-bold fs-5">Acoustic Wave Headphones</h6>
+                    <p className="text-muted small">$299</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Welcome Section */}
-      <div className="card-custom">
-        <div className="card-header-custom">
-          <i className="bi bi-info-circle"></i>
-          <span>Welcome</span>
-        </div>
-        <div className="card-body-custom">
-          <p style={{ marginBottom: '0.5rem', fontWeight: 600 }}>Category Management System</p>
-          <p style={{ color: 'var(--text-muted)', margin: 0, lineHeight: 1.7, fontSize: '0.93rem' }}>
-            This is a full-stack ecommerce category management application built with <strong>ReactJS</strong> on the frontend 
-            and <strong>Spring Boot</strong> on the backend. You can create, view, update, and delete product categories 
-            using the Categories page. The system supports soft-delete to prevent accidental data loss.
-          </p>
         </div>
       </div>
     </div>
